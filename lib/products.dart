@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:api_example/data_model.dart';
 import 'package:api_example/detalis.dart';
+import 'package:api_example/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 class Api extends StatefulWidget {
@@ -48,7 +49,7 @@ class _ApiState extends State<Api> {
         child: Text('Failed to load data'),
       )
       
-     : GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+     : GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 2,crossAxisSpacing: 3),
      itemCount: dataFromAPI!.products.length,
        itemBuilder: (context,index){
         final product =dataFromAPI!.products[index];
@@ -60,14 +61,41 @@ class _ApiState extends State<Api> {
             )));
           },
           child: Container(
-            
-            child: Column(
+            height: 300,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black,
+            width: 2),
+            boxShadow: [
+              BoxShadow(
+                color: const Color.fromARGB(255, 231, 223, 223),
+                blurRadius: 0,
+                spreadRadius: 1,
+              )
+            ]),
+            margin: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
+           child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.network(product.thumbnail,width: 100,height: 100,),
-                SizedBox(height: 10,),
-                Text(product.title),
-                SizedBox(height: 10,),
-                Text("\$${product.price.toString()}")
+                    
+                Image.network(product.thumbnail,width: 100,height: 65,),
+            
+                
+                Text(product.title,style: TextStyle(fontSize: 10),),
+               
+
+                Row(
+                  children: [
+                    SizedBox(width: 30),
+                    Text("\$${product.price.toString()}"),
+                    SizedBox(width: 5),
+                  GestureDetector(
+                     onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Wishlist(product: product,)));
+          },
+                    child: Icon(Icons.favorite,size: 15,))
+                  ],
+                )
               ],
             ),
           ),
