@@ -21,7 +21,7 @@ class _ApiState extends State<Api> {
   Productmodelapi? dataFromAPI;
   _getData() async{
     try {
-      String url="http://dummyjison.com/products";
+      String url="https://dummyjson.com/products";
       http.Response res=await http.get(Uri.parse(url));
       if(res.statusCode ==200){
         dataFromAPI=Productmodelapi.fromJson(json.decode(res.body));
