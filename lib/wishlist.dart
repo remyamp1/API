@@ -12,6 +12,7 @@ const Wishlist({required this.product});
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Wishlist'),
         actions: [
         GestureDetector
         (
@@ -21,41 +22,14 @@ const Wishlist({required this.product});
           child: Icon(Icons.shopping_cart))
         ],
       ),
-      body: ListView.separated( separatorBuilder: (context,index){
-        return SizedBox(height: 10,);
-      }, itemCount: 1,
+      body: ListView.builder(  itemCount: 1,
       itemBuilder: (context,index){
-        return Container(
-          height: 150,
-          width: double.infinity,
-         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 60,
-              width: 100,
-              child: 
-                 Image.network(product.thumbnail),
+        return ListTile(
+          leading:  Image.network(product.thumbnail,width: 100,height: 65,),
           
-            ),
-      Row(
-       
-        children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(product.title),
-            ),
-        ],
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text('${product.price.toString()}'),
-      )
-                     ],
-                      ),
-    
-     
+            title:Text(product.title,),
+            subtitle:  Text("\$${product.price.toString()}"),
+            trailing: ElevatedButton(onPressed: (){}, child: Text('Add to Cart')),
         );
       },)
     );
